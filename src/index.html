@@ -8,6 +8,19 @@
     <img src="#" />
     <script>
       const img = document.querySelector("img");
+
+      fetch(
+        "https://api.giphy.com/v1/gifs/translate?api_key=eskKJRvsnViqLDz7D1IExva4uwQFciIF&s=cats&rating=g",
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (response) {
+          img.src = response.data.images.original.url;
+        })
+        .catch(function (error) {
+          console.log("Something went wrong:", error);
+        });
     </script>
   </body>
 </html>
