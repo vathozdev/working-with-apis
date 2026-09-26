@@ -49,11 +49,11 @@
       });
       const form = document.querySelector("form");
       const searchBar = document.querySelector('input[type="search"]');
-      
+      const imgHolder = document.querySelector("#result-img");
       form.addEventListener("submit", (event) => {
         event.preventDefault();
         fetch(
-          `https://api.giphy.com/v1/gifs/search?api_key=mykey&q=${searchBar.value}&rating=g`,
+          `https://api.giphy.com/v1/gifs/search?api_key=eskKJRvsnViqLDz7D1IExva4uwQFciIF&q=${searchBar.value}&rating=g`,
         )
           .then(function (response) {
             if (!response.ok) {
@@ -62,16 +62,18 @@
             return response.json();
           })
           .then(function (response) {
-             if (response.data.length === 0) {
+            if (response.data.length === 0) {
               throw new Error(`Your search did not yield any results.`);
             }
             const randomIndex = Math.floor(
-  Math.random() * response.data.length);
-            const imgHolder = document.querySelector("#result-img");
+              Math.random() * response.data.length,
+            );
+
             imgHolder.src = response.data[randomIndex].images.original.url;
           })
           .catch((error) => {
             console.error("Error fetching the gif", error);
+            imgHolder.src = "placeholder.jpeg";
           });
       });
     </script>
