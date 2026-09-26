@@ -6,7 +6,7 @@
   </head>
   <body>
     <img src="#" />
-    
+    <img id="randomimg" src="#" />
     <script>
       const img = document.querySelector("img");
 
@@ -22,6 +22,24 @@
         .catch(function (error) {
           console.log("Something went wrong:", error);
         });
+
+      const fetchBtn = document.createElement("button");
+      fetchBtn.classList.add("fetch-btn");
+      fetchBtn.textContent = "CLICK TO GENERATE RANDOM PEPE GIFS";
+         document.body.appendChild(fetchBtn);
+      fetchBtn.addEventListener("click", () => {
+        const randomImg = document.querySelector("#randomimg");
+        fetch(
+          "https://api.giphy.com/v1/gifs/random?api_key=mykey&tag=pepe-frog&rating=g",
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            randomImg.src = response.data.images.original.url;
+          });
+      });
+   
     </script>
   </body>
 </html>
