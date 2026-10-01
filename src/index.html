@@ -37,17 +37,21 @@
       fetchBtn.textContent = "CLICK TO GENERATE RANDOM PEPE GIFS";
       document.body.appendChild(fetchBtn);
       fetchBtn.addEventListener("click", () => {
+
         const randomImg = document.querySelector("#randomimg");
-        fetch(
-          "https://api.giphy.com/v1/gifs/random?api_key=eskKJRvsnViqLDz7D1IExva4uwQFciIF&tag=pepe-frog&rating=g",
-        )
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (response) {
-            randomImg.src = response.data.images.original.url;
-          });
-      });
+        async function getPepes() {
+          try {
+            const response = await fetch("https://api.giphy.com/v1/gifs/random?api_key=eskKJRvsnViqLDz7D1IExva4uwQFciIF&tag=pepe-frog&rating=g",
+        );
+        const pepeData = await response.json();
+        randomImg.src = pepeData.data.images.original.url;
+          } catch (error) {
+            console.error(error);
+          }
+        }});
+        getPepes();
+          
+ 
       const form = document.querySelector("form");
       const searchBar = document.querySelector('input[type="search"]');
       const imgHolder = document.querySelector("#result-img");
